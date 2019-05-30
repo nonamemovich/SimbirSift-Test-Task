@@ -4,7 +4,7 @@ import store from '../../store/index'
 import {getDateString} from '../../functions/date'
 
 import {ModalWindows} from '../../data/constants'
-import {ShowComponent, priorityJSON, priorityStyle, ExampleTask} from '../../data/clientData'
+import {ShowComponent, priorityJSON, priorityStyle, taskStatus} from '../../data/clientData'
 
 class Task extends Component {
 	constructor(props) {
@@ -37,7 +37,7 @@ class Task extends Component {
                         <hr/>
                         <p className="card-text">{Task.fullDescription}</p>
                         <hr/>
-                        <h6 className="card-subtitle">Статус задачи {Task.state}</h6>
+                        <h6 className="card-subtitle">Статус задачи: {taskStatus[Task.status]}</h6>
                         <hr/>
                         <a href="#" className="text-decoration-none" onClick={ (e)=>{ this.props.ShowTaskList() }}>Перейти к списку задач</a>
                     </div>

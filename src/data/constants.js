@@ -7,7 +7,9 @@ export const ViewTaskList = {
 export const sortParams = {
     Date: 1,
     AllottedTime: 2,
-    Priotity: 3
+    Priotity: 3,
+    Plane: 4,
+    Status: 5
 }
 
 export const ModalWindows = {

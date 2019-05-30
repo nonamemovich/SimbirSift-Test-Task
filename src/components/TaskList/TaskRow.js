@@ -1,5 +1,5 @@
 import React, {Component, PureComponent} from "react"
-import {ShowComponent, priorityJSON, priorityStyle} from '../../data/clientData'
+import {taskStatus, priorityJSON, priorityStyle} from '../../data/clientData'
 
 import {getDateString} from '../../functions/date'
 
@@ -16,15 +16,16 @@ class TaskRow extends Component {
         let numb = this.props.numb
 
         EndDate.setHours(Task.StartDate.getHours() + Task.allottedTime)
-
+        let priorityElementStyle = "alert " + priorityStyle[Task.priority]
         return (
             <tr className={style.tableRow} onClick={ (e)=>{ this.SelectTask(e, Task.id) }}>
                 <td> {numb} </td>
                 <td> {Task.description} </td>
                 <td> {getDateString(Task.StartDate)} </td>
+                <td> {Task.planeTime} </td>
                 <td> {Task.allottedTime} </td>
-                <td> {getDateString(EndDate)} </td>
-                <td> <div className = {priorityStyle[Task.priority]} > {priorityJSON[Task.priority]}</div></td>
+                <td> <div className = {priorityElementStyle} > {priorityJSON[Task.priority]}</div></td>
+                <td> {taskStatus[Task.status]} </td>
             </tr>
         )
 

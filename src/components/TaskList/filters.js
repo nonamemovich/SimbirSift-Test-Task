@@ -1,4 +1,4 @@
-import {priorityJSON} from '../../data/clientData'
+import {priorityWidth, taskStatusWidth} from '../../data/clientData'
 import {sortParams} from '../../data/constants'
 
 // sort functions, must be return -1, 0, 1
@@ -27,13 +27,37 @@ let sortByAllottedTime = function (CurrentTask, NextTask) {
 }
 
 let sortByPriotity = function (CurrentTask, NextTask) {
-    if (CurrentTask.priority > NextTask.priority) {
+    if (priorityWidth[CurrentTask.priority] > priorityWidth[NextTask.priority]) {
         return 1
     }
-    if (CurrentTask.priority == NextTask.priority) {
+    if (priorityWidth[CurrentTask.priority] == priorityWidth[NextTask.priority]) {
         return 0
     }
-    if (CurrentTask.priority < NextTask.priority) {
+    if (priorityWidth[CurrentTask.priority] < priorityWidth[NextTask.priority]) {
+        return -1
+    }
+}
+
+let sortByPlane = function (CurrentTask, NextTask) {
+    if (CurrentTask.planeTime > NextTask.planeTime) {
+        return 1
+    }
+    if (CurrentTask.planeTime== NextTask.planeTime) {
+        return 0
+    }
+    if (CurrentTask.planeTime < NextTask.planeTime) {
+        return -1
+    }
+}
+
+let sortByStatus = function (CurrentTask, NextTask) {
+    if (taskStatusWidth[CurrentTask.status] > taskStatusWidth[NextTask.status]) {
+        return 1
+    }
+    if (taskStatusWidth[CurrentTask.status]== taskStatusWidth[NextTask.status]) {
+        return 0
+    }
+    if (taskStatusWidth[CurrentTask.status] < taskStatusWidth[NextTask.status]) {
         return -1
     }
 }
@@ -47,13 +71,18 @@ export const filters = {
     },
     Sort: function (TaskList, sortParam, reverse) {
         var newTaskList = Object.assign([], TaskList)
+        console.log('Plane')
         newTaskList.sort((Current, Next)=>{
             if (sortParams.Date==sortParam) {
-                return sortByDate(Current, Next, reverse)
+                return sortByDate(Current, Next)
             } else if (sortParams.AllottedTime==sortParam) {
-                return sortByAllottedTime(Current, Next, reverse)
+                return sortByAllottedTime(Current, Next)
             } else if (sortParams.Priotity==sortParam) {
-                return sortByPriotity(Current, Next, reverse)
+                return sortByPriotity(Current, Next)
+            } else if (sortParams.Plane==sortParam) {
+                return sortByPlane(Current, Next)
+            } else if (sortParams.Status==sortParam) {
+                return sortByStatus(Current, Next)
             }
             return 0
         })

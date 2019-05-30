@@ -12,6 +12,7 @@ class TaskWindow extends Component {
         this.fullDescriptionRef = React.createRef()
         this.startTimeRef = React.createRef()
         this.startDateRef = React.createRef()
+        this.planeTimeRef = React.createRef()
         this.allottedTimeRef = React.createRef()
         this.priorityRef = React.createRef()
         this.statusRef = React.createRef()
@@ -31,6 +32,7 @@ class TaskWindow extends Component {
         let fullDescription = ''
         let startTime = ''
         let startDate = ''
+        let planeTime = ''
         let allottedTime = ''
         let priority = ''
         let status = ''
@@ -40,10 +42,12 @@ class TaskWindow extends Component {
             status = 'plane'
             buttonAction = <button type="submit" className="btn btn-primary" data-dismiss="modal" 
             onClick={ ()=>{this.addTask() } }>Добавить</button>
+
         } else {
             id = Task.id
             description = Task.description
             fullDescription = Task.fullDescription
+            planeTime = Task.planeTime
             allottedTime = Task.allottedTime
 
             startDate = getDate(Task.StartDate)
@@ -96,6 +100,16 @@ class TaskWindow extends Component {
                                 placeholder="обязательное поле" defaultValue={startDate}/>
                         </div>
 
+                        <div className="input-group mb-3">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">Планируемое время</span>
+                            </div>
+                            <input required type="text" className="form-control" 
+                                ref = {this.planeTimeRef}
+                                placeholder="обязательное поле" defaultValue={planeTime}/>
+                        </div>
+
+                        
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
                                 <span className="input-group-text">Отведённое время</span>
@@ -151,6 +165,7 @@ class TaskWindow extends Component {
         let startTime = this.startTimeRef.current.value || ''
         let startDate = this.startDateRef.current.value || ''
 
+        let planeTime = this.planeTimeRef.current.value || ''
         let allottedTime = this.allottedTimeRef.current.value || ''
         let priority = this.priorityRef.current.value || ''
         
@@ -163,6 +178,7 @@ class TaskWindow extends Component {
                 description: description,
                 fullDescription: fullDescription,
                 StartDate: getDateObject(startTime, startDate),
+                planeTime: planeTime,
                 allottedTime: allottedTime,
                 priority: priority,
                 status: status
@@ -179,6 +195,7 @@ class TaskWindow extends Component {
         let startTime = this.startTimeRef.current.value || ''
         let startDate = this.startDateRef.current.value || ''
 
+        let planeTime = this.planeTimeRef.current.value || ''
         let allottedTime = this.allottedTimeRef.current.value || ''
         let priority = this.priorityRef.current.value || ''
         
@@ -192,6 +209,7 @@ class TaskWindow extends Component {
                 description: description,
                 fullDescription: fullDescription,
                 StartDate: getDateObject(startTime, startDate),
+                planeTime: planeTime,
                 allottedTime: allottedTime,
                 priority: priority,
                 status: status

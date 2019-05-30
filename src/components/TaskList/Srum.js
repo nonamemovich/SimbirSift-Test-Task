@@ -11,7 +11,7 @@ class TaskEl extends Component {
     render () {
         let Task = this.props.Task
         let eventOptions = this.props.eventOptions
-        console.log(this.props)
+        
         return (
             <a key={Task.id} href="#" className="list-group-item list-group-item-action"
                 draggable
@@ -125,9 +125,9 @@ class Srum extends Component {
     onDragEnd (e, eventOptions) {
         if (!eventOptions.taskStatus) return
         let state = store.getState()
-
+        console.log(eventOptions)
         let NewTask = Object.assign( {}, eventOptions.Task, {status: eventOptions.taskStatus})
-        this.props.UpdateTask(state.TasksList, NewTask)
+        this.props.UpdateTask(NewTask)
 
         eventOptions ={
             Task: null,

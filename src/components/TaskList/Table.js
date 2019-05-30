@@ -33,10 +33,11 @@ class TaskList extends Component {
                     <tr className={style.tableFilter}>
                         <th scope="col">#</th>
                         <th scope="col">Описание задачи</th>
-                        <th scope="col" onClick={ ()=>{ this.sortByDate() } }>Дата</th>
-                        <th scope="col" onClick={ ()=>{ this.sortByAllottedTime() } }>Время затраченное на выполнение</th>
-                        <th scope="col">Статус</th>
-                        <th scope="col" onClick={ ()=>{ this.sortByPriotity() } }>Приоритет </th>
+                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Date) } }>Дата</th>
+                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Plane) } }>Планируемое время</th>
+                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.AllottedTime) } }>Затраченное время</th>
+                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Priotity) } }>Приоритет </th>
+                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Status) } }>Статус</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,38 +46,18 @@ class TaskList extends Component {
             </table>
         )
     }
-    sortByDate () {
+
+    sortFunction (sortParams) {
         const currentState = this.state;
         let reverse = false 
-        if (currentState.sortParam==sortParams.Date) reverse = !currentState.reverse
+        if (currentState.sortParam==sortParams) reverse = !currentState.reverse
         this.setState({
             filterPriotity: currentState.filterPriotity,
-            sortParam: sortParams.Date,
+            sortParam: sortParams,
             reverse: reverse
         })
     }
 
-    sortByAllottedTime () {
-        const currentState = this.state;
-        let reverse = false 
-        if (currentState.sortParam==sortParams.AllottedTime) reverse = !currentState.reverse
-        this.setState({
-            filterPriotity: currentState.filterPriotity,
-            sortParam: sortParams.AllottedTime,
-            reverse: reverse
-        })
-    }
-
-    sortByPriotity () {
-        const currentState = this.state;
-        let reverse = false 
-        if (currentState.sortParam==sortParams.Priotity) reverse = !currentState.reverse
-        this.setState({
-            filterPriotity: currentState.filterPriotity,
-            sortParam: sortParams.Priotity,
-            reverse: reverse
-        })
-    }
 }
 
 export default TaskList

@@ -1,0 +1,11 @@
+tr.tableRow {
+    cursor: 'pointer'
+}
+
+tr.tableFilter {
+    cursor: 'alias'
+}
+
+td.w250px {
+    width: 250px
+}

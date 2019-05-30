@@ -1,17 +1,9 @@
 import React, {Component, PureComponent} from "react"
 import {ShowComponent, priorityJSON, priorityStyle} from '../../data/clientData'
 
+import {getDateString} from '../../functions/date'
+
 import style from './style.css'
-
-function getDateString(DateJsObj = new Date() ) {
-    let day = DateJsObj.getDate()
-    let month = DateJsObj.getMonth()
-    let year = DateJsObj.getFullYear()
-    let hour = DateJsObj.getHours()
-    let minut = DateJsObj.getMinutes()
-
-    return day+'.'+month+'.'+year+' '+hour+':'+minut
-}
 
 class TaskRow extends Component {
 	constructor(props) {

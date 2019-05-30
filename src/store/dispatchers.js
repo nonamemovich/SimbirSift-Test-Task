@@ -19,7 +19,7 @@ export default (dispatch) => {
             })
         },
 
-        UpdateTask: (TaskList, newTask) => {
+        UpdateTask: (newTask) => {
             return new Promise((resolve, reject)=>{
                 setTimeout(() => {
                     // здесь будет отправка данных на сервер.
@@ -28,8 +28,11 @@ export default (dispatch) => {
             }).then(
                 reuslt =>
                 {
+                    let state = store.getState()
+                    const TasksList = state.TasksList
+
                     let newTaskList= []
-                    newTaskList = TaskList.map((Task)=>{
+                    newTaskList = TasksList.map((Task)=>{
                         if(newTask.id==Task.id) {
                             return newTask
                         }

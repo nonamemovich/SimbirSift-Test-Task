@@ -1,7 +1,10 @@
 import React, {Component} from "react"
-import {ShowComponent, priorityJSON, priorityStyle, ExampleTask} from '../../data/clientData'
+import store from '../../store/index'
+
 import {getDateString} from '../../functions/date'
-import store from '../../store/index';
+
+import {ModalWindows} from '../../data/constants'
+import {ShowComponent, priorityJSON, priorityStyle, ExampleTask} from '../../data/clientData'
 
 class Task extends Component {
 	constructor(props) {
@@ -26,7 +29,11 @@ class Task extends Component {
                 <div className="card w-75" id={Task.id}>
                     <h5 className="card-header">{Task.description}</h5>
                     <div className="card-body">
-                        <h5 className="card-title">{getDateString(Task.StartDate)}</h5>
+                        <h5 className="card-title">{getDateString(Task.StartDate)}
+                            <img src="..." alt="..." 
+                                className="img-thumbnail show_table" 
+                                onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal, Task) }}/>
+                        </h5>
                         <hr/>
                         <p className="card-text">{Task.fullDescription}</p>
                         <hr/>

@@ -58,11 +58,24 @@ class TaskList extends Component {
         
         let TaskContainer = ''
         if (this.state.viewTaskList== ViewTaskList.table) {
-            TaskContainer = <Table TasksList={TasksList} SelectTask={this.props.SelectTask}/>
+            TaskContainer = <Table 
+                TasksList={TasksList} 
+                SelectTask={this.props.SelectTask}
+                ShowModalWindow={this.props.ShowModalWindow}
+                />
         } else if (this.state.viewTaskList== ViewTaskList.userList) {
-            TaskContainer = <UserList TasksList={TasksList} SelectTask={this.props.SelectTask}/>
+            TaskContainer = <UserList 
+                TasksList={TasksList} 
+                SelectTask={this.props.SelectTask}
+                ShowModalWindow={this.props.ShowModalWindow}
+                />
         } else if (this.state.viewTaskList== ViewTaskList.scrumTable) {
-            TaskContainer = <Srum TasksList={TasksList} SelectTask={this.props.SelectTask} UpdateTask={this.props.UpdateTask}/>
+            TaskContainer = <Srum 
+                TasksList={TasksList} 
+                SelectTask={this.props.SelectTask} 
+                UpdateTask={this.props.UpdateTask}
+                ShowModalWindow={this.props.ShowModalWindow}
+                />
         }
 
         return (
@@ -74,10 +87,10 @@ class TaskList extends Component {
                     {filterTag}
                 </div>
                 <div className="row">
-                <img src="..." alt="..." className="img-thumbnail" onClick={ (e)=>{ this.changeViewTaskList('table') }}/>
-                <img src="..." alt="..." className="img-thumbnail" onClick={ (e)=>{ this.changeViewTaskList('userList') }}/>
-                <img src="..." alt="..." className="img-thumbnail" onClick={ (e)=>{ this.changeViewTaskList('scrumTable') }}/>
-                <img src="..." alt="..." className="img-thumbnail" onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal) }}/>
+                <img src="..." alt="..." className="img-thumbnail show_table" onClick={ (e)=>{ this.changeViewTaskList('table') }}/>
+                <img src="..." alt="..." className="img-thumbnail show_user_list" onClick={ (e)=>{ this.changeViewTaskList('userList') }}/>
+                <img src="..." alt="..." className="img-thumbnail show_scrum_table" onClick={ (e)=>{ this.changeViewTaskList('scrumTable') }}/>
+                <img src="..." alt="..." className="img-thumbnail add_task" onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal) }}/>
                 </div>
                 <div className="row">
                     {TaskContainer}

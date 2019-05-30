@@ -14,6 +14,7 @@ class ModalWindow extends Component {
 	constructor(props) {
         super(props);
     }
+
     render () {
         let storeState = store.getState()
         let ModalStore = storeState.ModalStore
@@ -28,9 +29,9 @@ class ModalWindow extends Component {
                 onAddTask={this.props.onAddTask}/>
         } else if(ModalStore.showWindow==ModalWindows.AlertLoginModal && ModalStore.show) {
             modalBody = <AlertLoginModal 
-                closeModalWindow={this.props.closeModalWindow}/>
+                CloseModalWindow={this.props.CloseModalWindow}/>
         }
-
+        
         return (
             <div className="modal" style={{ display: display }}>
                 {modalBody}

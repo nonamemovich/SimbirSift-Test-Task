@@ -27,6 +27,7 @@ class App extends Component {
                 contComponent = <Task 
                     TastId={state.TaskId} 
                     ShowTaskList={ this.props.ShowTaskList }
+                    ShowModalWindow={this.props.ShowModalWindow}
                 />
             }
             if (state.ShowComponent == ShowComponent.TaskList) {

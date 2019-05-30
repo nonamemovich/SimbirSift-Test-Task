@@ -1,5 +1,7 @@
 import React, {Component} from "react"
-import {getDateString, getDateObject} from '../../functions/date'
+import store from '../../store/index'
+
+import {getDateString, getDateObject, getTime, getDate} from '../../functions/date'
 import {priorityJSON, taskStatus} from '../../data/clientData'
 
 class TaskWindow extends Component {
@@ -17,22 +19,22 @@ class TaskWindow extends Component {
     }
 
     render() {
-
-        let Task = this.props.Task
+        let storeState = store.getState()
+        let Task = storeState.ModalStore.Task || null
 
         let buttonAction = ''
         let closeButton = <button type="button" className="btn btn-secondary" data-dismiss="modal" 
-        onClick={ ()=>{this.props.closeModalWindow()} }>Закрыть</button>
+            onClick={ ()=>{this.props.CloseModalWindow()} }>Закрыть</button>
         
         let id = ''
         let description = ''
         let fullDescription = ''
-        let StartTime = ''
-        let StartDate = ''
+        let startTime = ''
+        let startDate = ''
         let allottedTime = ''
         let priority = ''
         let status = ''
-        
+
         if (!Task) {
             priority = 'low'
             status = 'plane'
@@ -42,12 +44,16 @@ class TaskWindow extends Component {
             id = Task.id
             description = Task.description
             fullDescription = Task.fullDescription
-            StartDate = getDateString(Task.StartDate)
+            allottedTime = Task.allottedTime
+
+            startDate = getDate(Task.StartDate)
+            startTime = getTime(Task.StartDate)
+
             priority = Task.priority
             status = Task.status
 
             buttonAction = <button type="button" className="btn btn-primary" data-dismiss="modal" 
-            onClick={ ()=>{this.props.closeModalWindow()} }>Обновить</button>
+            onClick={ ()=>{this.updataTask(Task.id)} }>Обновить</button>
         }
 
         return (
@@ -84,10 +90,10 @@ class TaskWindow extends Component {
                             </div>
                             <input required type="time" ref = {this.startTimeRef}
                                 className="form-control" 
-                                placeholder="обязательное поле" defaultValue={StartTime}/>
+                                placeholder="обязательное поле" defaultValue={startTime}/>
                             <input required type="date" ref = {this.startDateRef}
                                 className="form-control" 
-                                placeholder="обязательное поле" defaultValue={StartDate}/>
+                                placeholder="обязательное поле" defaultValue={startDate}/>
                         </div>
 
                         <div className="input-group mb-3">
@@ -142,8 +148,8 @@ class TaskWindow extends Component {
         let description = this.descriptionRef.current.value || ''
         let fullDescription = this.fullDescriptionRef.current.value || ''
 
-        let StartTime = this.startTimeRef.current.value || ''
-        let StartDate = this.startDateRef.current.value || ''
+        let startTime = this.startTimeRef.current.value || ''
+        let startDate = this.startDateRef.current.value || ''
 
         let allottedTime = this.allottedTimeRef.current.value || ''
         let priority = this.priorityRef.current.value || ''
@@ -156,7 +162,36 @@ class TaskWindow extends Component {
             this.props.onAddTask({
                 description: description,
                 fullDescription: fullDescription,
-                StartDate: getDateObject(StartTime, StartDate),
+                StartDate: getDateObject(startTime, startDate),
+                allottedTime: allottedTime,
+                priority: priority,
+                status: status
+            })
+            this.props.CloseModalWindow()
+        }
+    }
+
+    updataTask(TaskId) {
+        console.log('TaskId',TaskId)
+        let description = this.descriptionRef.current.value || ''
+        let fullDescription = this.fullDescriptionRef.current.value || ''
+
+        let startTime = this.startTimeRef.current.value || ''
+        let startDate = this.startDateRef.current.value || ''
+
+        let allottedTime = this.allottedTimeRef.current.value || ''
+        let priority = this.priorityRef.current.value || ''
+        
+        let status = this.statusRef.current.value || ''
+
+        if (!description || !fullDescription || !allottedTime) {
+            this.invalidFeedback.current.style.display = 'block'
+        } else {
+            this.props.UpdateTask({
+                id: TaskId,
+                description: description,
+                fullDescription: fullDescription,
+                StartDate: getDateObject(startTime, startDate),
                 allottedTime: allottedTime,
                 priority: priority,
                 status: status

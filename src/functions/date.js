@@ -1,11 +1,5 @@
 export function getDateString (DateJsObj = new Date() ) {
-    let day = DateJsObj.getDate()
-    let month = DateJsObj.getMonth()
-    let year = DateJsObj.getFullYear()
-    let hour = DateJsObj.getHours()
-    let minut = DateJsObj.getMinutes()
-
-    return day+'.'+month+'.'+year+' '+hour+':'+minut
+    return getDate(DateJsObj)+' '+getTime(DateJsObj)
 }
 
 export function getDateObject (TimeStr='', DateStr='') {
@@ -22,3 +16,22 @@ export function getDateObject (TimeStr='', DateStr='') {
     return new Date(year, month, day, hour, minute)
 }
 
+export function getTime(DateJsObj=null) {
+    if(!DateJsObj) return ''
+    let hours = DateJsObj.getHours()+''
+    hours.length==1 ? hours = '0'+hours : hours = hours
+    let minute = DateJsObj.getMinutes()+''
+    minute.length==1 ? minute = '0'+minute : minute = minute
+    return hours+':'+minute
+}
+
+export function getDate(DateJsObj=null) {
+    if(!DateJsObj) return ''
+    let month = DateJsObj.getMonth()+''
+    month.length==1 ? month = '0'+month : month = month
+
+    let date = DateJsObj.getDate()+''
+    date.length==1 ? date = '0'+date : date = date
+
+    return DateJsObj.getFullYear()+'-'+month+'-'+date
+}

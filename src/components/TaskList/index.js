@@ -4,10 +4,9 @@ import Table from './Table'
 import UserList from './UserList'
 import Srum from './Srum'
 
-
 import store from '../../store/index';
-import {priorityJSON} from '../../data/clientData'                                  ///
-import {ViewTaskList,sortParams} from '../../data/constants'
+import {priorityJSON,} from '../../data/clientData'                                  ///
+import {ViewTaskList, sortParams, ModalWindows} from '../../data/constants'
 
 import {filters} from './filters'
 
@@ -24,7 +23,8 @@ class TaskList extends Component {
         this.state = {
             filterPriotity: null,
             sortParam: sortParams.Date,
-            reverse: false
+            reverse: false,
+            viewTaskList: ViewTaskList.table
         }
 
         this.filterByPriotity = this.filterByPriotity.bind(this)
@@ -52,19 +52,19 @@ class TaskList extends Component {
             TasksList = filters.ByPriotity(TasksList, this.state.filterPriotity)
 
             filterTag = <button type="button" className="close" aria-label="Close" onClick={ ()=>{ this.removeFilter() } }>
-                <span className="badge badge-primary text-wrap">{priorityJSON[this.state.filterPriotity]}<span aria-hidden="true">&times;</span></span>                
+                <span className="badge badge-primary text-wrap">{priorityJSON[this.state.filterPriotity]}<span aria-hidden="true">&times;</span></span>
             </button>
         }
         
         let TaskContainer = ''
-        if (0) {
+        if (this.state.viewTaskList== ViewTaskList.table) {
             TaskContainer = <Table TasksList={TasksList} SelectTask={this.props.SelectTask}/>
-        } else if (0) {
+        } else if (this.state.viewTaskList== ViewTaskList.userList) {
             TaskContainer = <UserList TasksList={TasksList} SelectTask={this.props.SelectTask}/>
-        } else if (1) {
+        } else if (this.state.viewTaskList== ViewTaskList.scrumTable) {
             TaskContainer = <Srum TasksList={TasksList} SelectTask={this.props.SelectTask} UpdateTask={this.props.UpdateTask}/>
         }
-        
+
         return (
             <div className="container">
                 <div className="row">
@@ -73,12 +73,29 @@ class TaskList extends Component {
                 <div className="row">
                     {filterTag}
                 </div>
-                
+                <div className="row">
+                <img src="..." alt="..." className="img-thumbnail" onClick={ (e)=>{ this.changeViewTaskList('table') }}/>
+                <img src="..." alt="..." className="img-thumbnail" onClick={ (e)=>{ this.changeViewTaskList('userList') }}/>
+                <img src="..." alt="..." className="img-thumbnail" onClick={ (e)=>{ this.changeViewTaskList('scrumTable') }}/>
+                <img src="..." alt="..." className="img-thumbnail" onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal) }}/>
+                </div>
                 <div className="row">
                     {TaskContainer}
                 </div>
+                <div className="row">
+                    
+                </div>
             </div>
         )
+    }
+
+    changeViewTaskList (newView) { 
+        console.log(newView)
+        if(!!ViewTaskList[newView]) {
+            this.setState(Object.assign({}, this.state, {
+                viewTaskList: ViewTaskList[newView]
+            }))
+        }
     }
 
     filterByPriotity(priotity) {

@@ -9,3 +9,8 @@ export const sortParams = {
     AllottedTime: 2,
     Priotity: 3
 }
+
+export const ModalWindows = {
+    TaskModal: 1,
+    AlertLoginModal: 2
+}

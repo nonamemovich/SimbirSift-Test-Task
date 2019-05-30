@@ -11,7 +11,7 @@ class TaskEl extends Component {
     render () {
         let Task = this.props.Task
         let eventOptions = this.props.eventOptions
-
+        console.log(this.props)
         return (
             <a key={Task.id} href="#" className="list-group-item list-group-item-action"
                 draggable
@@ -72,7 +72,12 @@ class Srum extends Component {
                             <td className='w250px' onDragEnter={ (e) => this.onDragEnter(e, 'plane', eventOptions)}>
                             {planeList.map((Task)=>{
                                 return (
-                                    <TaskEl key={Task.id} Task={Task} onDragStart={this.onDragStart} onDragEnd={this.onDragEnd} onClick={this.onClick} eventOptions={eventOptions}/>
+                                    <TaskEl key={Task.id} 
+                                    Task={Task} 
+                                    onDragStart={this.onDragStart} 
+                                    onDragEnd={this.onDragEnd} 
+                                    SelectTask={this.props.SelectTask} 
+                                    eventOptions={eventOptions}/>
                                 )
                             })}
                             </td>
@@ -84,16 +89,21 @@ class Srum extends Component {
                                     Task={Task} 
                                     onDragStart={this.onDragStart} 
                                     onDragEnd={this.onDragEnd} 
-                                    onClick={this.onClick}
+                                    SelectTask={this.props.SelectTask}
                                     eventOptions={eventOptions}/>
                                 )
                             })}
                             </td>
-
+                            
                             <td className='w250px' onDragEnter={ (e) => this.onDragEnter(e, 'done', eventOptions)}>
                             {doneList.map((Task)=>{
                                 return (
-                                    <TaskEl key={Task.id} Task={Task} onDragStart={this.onDragStart} onDragEnd={this.onDragEnd} onClick={this.onClick} eventOptions={eventOptions}/>
+                                    <TaskEl key={Task.id} 
+                                    Task={Task} 
+                                    onDragStart={this.onDragStart} 
+                                    onDragEnd={this.onDragEnd} 
+                                    SelectTask={this.props.SelectTask} 
+                                    eventOptions={eventOptions}/>
                                 )
                             })}
                             </td>

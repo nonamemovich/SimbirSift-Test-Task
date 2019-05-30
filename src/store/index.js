@@ -13,7 +13,12 @@ let initialState = {
     TasksList: TaskList,
     ShowComponent: ShowComponent.TaskList,
     TaskId: null,
-    Authorisation: true
+    Authorisation: true,
+    ModalStore: {
+        show: false,
+        showWindow: null,
+        Task: null
+    }
 }
 
 var store = createStore((state = initialState, action)=>{
@@ -48,6 +53,20 @@ var store = createStore((state = initialState, action)=>{
             return newState
         case 'LOGOFF':
             newState.Authorisation = false
+            return newState
+        case 'SHOW_MODAL':
+            newState.ModalStore = {
+                show: true,
+                showWindow: action.payload.showWindow,
+                Task: action.payload.Task
+            }
+            return newState
+        case 'CLOSE_MODAL':
+            newState.ModalStore = {
+                show: false,
+                showWindow: null,
+                Task: null
+            }
             return newState
         default:
             return state

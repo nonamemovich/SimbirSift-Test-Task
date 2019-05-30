@@ -28,6 +28,7 @@ export const TaskList = [
         description: 'Встать утром',
         fullDescription: 'Проснуться пораньше что бы успеть собраться в спортзал.',
         StartDate: new Date('2019-05-28T07:00:00'),
+        planeTime: 6,
         allottedTime: 4,
         priority: 'hight',
         status: 'done'
@@ -36,6 +37,7 @@ export const TaskList = [
         description: 'Приготовить завтрак',
         fullDescription: 'Лучше всего подойдёт яичница с кашей, в качестве напитка приготовить кофе.',
         StartDate: new Date('2019-05-28T07:15:00'),
+        planeTime: 6,
         allottedTime: 1,
         priority: 'hight',
         status: 'doing'
@@ -44,6 +46,7 @@ export const TaskList = [
         description: 'Просмотр статей на хабре',
         fullDescription: 'Просмотреть статьи по тегам <js> <c#> и популярные за последние сутки',
         StartDate: new Date('2019-05-28T07:25:00'),
+        planeTime: 6,
         allottedTime: 1,
         priority: 'medium',
         status: 'plane'

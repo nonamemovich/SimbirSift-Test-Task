@@ -4,7 +4,6 @@ import {priorityJSON} from '../../data/clientData'
 class Filter extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             showSelect: false
         }

@@ -1,6 +1,7 @@
 import {ShowComponent} from '../data/clientData'
 import { TaskList as LoadTaskList } from '../data/clientData'
 
+import store from '../store/index'
 
 export default (dispatch) => {
     return {
@@ -92,16 +93,37 @@ export default (dispatch) => {
             })
         },
 
-        onAddTask: (TaskList=[], newTask) => {
-            let NewTaskList = TaskList.slice().push(newPoint);
+        onAddTask: (newTask) => {
+            let state = store.getState()
+            const TasksList = state.TasksList
 
+            newTask.id = TasksList.length+1
+
+            let NewTasksList = TasksList.slice();
+            NewTasksList.push(newTask)
             dispatch({
                 type: 'ADD_TASK',
-                payload: NewTaskList
+                payload: NewTasksList
             })
         },
 
-        onRemoveTask: (TaskList=[], TaskIndex) => {
+        ShowModalWindow: (showWindow, Task=null)=> {
+            dispatch({
+                type: 'SHOW_MODAL',
+                payload: {
+                    showWindow: showWindow, 
+                    Task: Task
+                }
+            })
+        },
+
+        CloseModalWindow: ()=> {
+            dispatch({
+                type: 'CLOSE_MODAL'
+            })
+        },
+
+        onRemoveTask: (TaskIndex) => {
             let NewTaskList = TaskList.slice().splice(TaskIndex,1)
 
             dispatch({

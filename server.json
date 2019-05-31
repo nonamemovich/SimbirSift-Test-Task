@@ -1,0 +1,133 @@
+{
+    "maxTaskId":11,
+    "users": {
+        "programmer":{
+            "key":"f34fr5",
+            "password": "ese1ea21s",
+            "TasksList": [
+                {
+                    "id": 1,
+                    "description": "Пофиксить баги",
+                    "fullDescription": "Просмотреть отчёты тестера и пофиксить баги.",
+                    "StartDate": "2019-05-28 09:00",
+                    "planeTime": 2,
+                    "allottedTime": 0,
+                    "priority": "hight",
+                    "status": "plane"
+                },
+                {
+                    "id": 2,
+                    "description": "Глянуть хабр",
+                    "fullDescription": "Просмотреть все статьи по тегам javascript, php и лучшие публикации",
+                    "StartDate": "2019-05-28 09:00",
+                    "planeTime": 2,
+                    "allottedTime": 4,
+                    "priority": "low",
+                    "status": "doing"
+                },
+                {
+                    "id": 3,
+                    "description": "Дописать документацию",
+                    "fullDescription": "Дописать документацию по новому функционалу.",
+                    "StartDate": "2019-05-27 14:00",
+                    "planeTime": 6,
+                    "allottedTime": 4,
+                    "priority": "medium",
+                    "status": "doing"
+                },
+                {
+                    "id": 4,
+                    "description": "Передать тестировщику на поиск багов",
+                    "fullDescription": "Проверить работоспособность новых фич, залить в репозиторий, сообщить тестеру о готовности к тестам",
+                    "StartDate": "2019-05-27 16:00",
+                    "planeTime": 1,
+                    "allottedTime": 2,
+                    "priority": "medium",
+                    "status": "done"
+                }
+            ]
+        },
+        "teamLeader":{
+            "key":"1ded2r",
+            "password": "123sdf$%6",
+            "TasksList": [
+                {
+                    "id": 5,
+                    "description": "Сформировать ТЗ",
+                    "fullDescription": "Обсудить с заказчиком целесообразность хотелок, сформировать ТЗ",
+                    "StartDate": "2019-05-27 09:00",
+                    "planeTime": 2,
+                    "allottedTime": 2,
+                    "priority": "hight",
+                    "status": "done"
+                },
+                {
+                    "id": 6,
+                    "description": "Декомпозировать ТЗ и распределить по команде",
+                    "fullDescription": "Декомпозировать ТЗ, провести мозговой штурм по задачам и распределить по компетентности",
+                    "StartDate": "2019-05-27 10:00",
+                    "planeTime": 4,
+                    "allottedTime": 3,
+                    "priority": "hight",
+                    "status": "done"
+                },
+                {
+                    "id": 7,
+                    "description": "Дописать синхроизацию",
+                    "fullDescription": "Дописать синхрнизацию с 1С по SOAP протоколу",
+                    "StartDate": "2019-05-28 09:00",
+                    "planeTime": 6,
+                    "allottedTime": 4,
+                    "priority": "medium",
+                    "status": "doing"
+                },
+                {
+                    "id": 8,
+                    "description": "Чекнуть прогресс команды",
+                    "fullDescription": "Чекнуть прогресс команды по распределённым задачам",
+                    "StartDate": "2019-05-27 16:00",
+                    "planeTime": 1,
+                    "allottedTime": 0,
+                    "priority": "medium",
+                    "status": "plane"
+                }
+            ]
+        },
+        "designer":{
+            "key":"werf43",
+            "password": "12345",
+            "TasksList": [
+                {
+                    "id": 9,
+                    "description": "Дорисовать макет",
+                    "fullDescription": "Обсудить с заказчиком целесообразность хотелок, сформировать ТЗ",
+                    "StartDate": "2019-05-27 09:00",
+                    "planeTime": 8,
+                    "allottedTime": 10,
+                    "priority": "hight",
+                    "status": "done"
+                },
+                {
+                    "id": 10,
+                    "description": "Согласовать макеты",
+                    "fullDescription": "Согласовать макеты с TeamLead и заказчиком",
+                    "StartDate": "2019-05-27 12:00",
+                    "planeTime": 1,
+                    "allottedTime": 2,
+                    "priority": "hight",
+                    "status": "doing"
+                },
+                {
+                    "id": 11,
+                    "description": "Передать макет",
+                    "fullDescription": "Передать макет верстальщику",
+                    "StartDate": "2019-05-27 12:00",
+                    "planeTime": 1,
+                    "allottedTime": 1,
+                    "priority": "hight",
+                    "status": "done"
+                }
+            ]
+        }
+    }
+}

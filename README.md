@@ -3,6 +3,6 @@
 
 Тестовое задание.
 Запуск форнта 
-   npm start
+   'npm start'
 Запуск микросервера на Express 
-   node server.js
+   'node server.js'

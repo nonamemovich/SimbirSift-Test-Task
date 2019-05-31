@@ -9,3 +9,6 @@ tr.tableFilter {
 td.w250px {
     width: 250px
 }
+td.borderRight {
+    border-right: 2px solid #dee2e6;
+}

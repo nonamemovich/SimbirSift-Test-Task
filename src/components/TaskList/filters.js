@@ -71,7 +71,6 @@ export const filters = {
     },
     Sort: function (TaskList, sortParam, reverse) {
         var newTaskList = Object.assign([], TaskList)
-        console.log('Plane')
         newTaskList.sort((Current, Next)=>{
             if (sortParams.Date==sortParam) {
                 return sortByDate(Current, Next)

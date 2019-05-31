@@ -20,7 +20,7 @@ class Task extends Component {
                 break
             }
         }
-
+        
         let EndDate = new Date()
         EndDate.setHours(Task.StartDate.getHours() + Task.allottedTime)
 
@@ -30,16 +30,20 @@ class Task extends Component {
                     <h5 className="card-header">{Task.description}</h5>
                     <div className="card-body">
                         <h5 className="card-title">{getDateString(Task.StartDate)}
-                            <img src="..." alt="..." 
-                                className="img-thumbnail show_table" 
-                                onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal, Task) }}/>
                         </h5>
                         <hr/>
                         <p className="card-text">{Task.fullDescription}</p>
                         <hr/>
+                        <h6 className="card-subtitle">Планируемое время: {Task.planeTime}</h6>
+                        <hr/>
+                        <h6 className="card-subtitle">Затраченное время: {Task.allottedTime}</h6>
+                        <hr/>
                         <h6 className="card-subtitle">Статус задачи: {taskStatus[Task.status]}</h6>
                         <hr/>
-                        <a href="#" className="text-decoration-none" onClick={ (e)=>{ this.props.ShowTaskList() }}>Перейти к списку задач</a>
+                        <h6 className="card-subtitle">Приоритет: {priorityJSON[Task.priority]}</h6>
+                        <hr/>
+                        <button type="button" className="btn btn-outline-primary mb-1" onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal, Task) }}>Редактировать</button>
+                        <a href="#" className="text-decoration-none float-right" onClick={ (e)=>{ this.props.ShowTaskList() }}>Перейти к списку задач</a>
                     </div>
                 </div>
             )

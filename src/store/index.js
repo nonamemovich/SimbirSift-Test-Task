@@ -7,13 +7,14 @@ let ShowComponent = {
     LoginForm: 2
 }
 
-let StartDate = new Date()
-
 let initialState = {
     TasksList: TaskList,
     ShowComponent: ShowComponent.TaskList,
     TaskId: null,
-    Authorisation: true,
+    Authorisation: {
+        login: '',
+        password: ''
+    },
     ModalStore: {
         show: false,
         showWindow: null,
@@ -50,9 +51,17 @@ var store = createStore((state = initialState, action)=>{
         case 'LOGIN':
             newState.Authorisation = true
             newState.ShowComponent = ShowComponent.TaskList
+            newState.TasksList = action.payload.TasksList
+            newState.Authorisation = {
+                login: action.payload.login,
+                password: action.payload.password
+            }
             return newState
         case 'LOGOFF':
-            newState.Authorisation = false
+            newState.Authorisation = {
+                login: '',
+                password: ''
+            }
             return newState
         case 'SHOW_MODAL':
             newState.ModalStore = {

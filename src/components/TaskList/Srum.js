@@ -41,12 +41,12 @@ class Srum extends Component {
             Task: null,
             taskStatus: null
         }
-        let state = store.getState()
+        let TasksList = this.props.TasksList
         let doneList = []
         let planeList = []
         let doingList = []
 
-        state.TasksList.map((Task)=>{
+        TasksList.map((Task)=>{
             if (Task.status=='done') {
                 doneList.push(Task)
             } else if (Task.status=='plane') {

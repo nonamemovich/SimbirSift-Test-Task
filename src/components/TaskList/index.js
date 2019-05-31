@@ -51,25 +51,31 @@ class TaskList extends Component {
         if (this.state.filterPriotity) {
             TasksList = filters.ByPriotity(TasksList, this.state.filterPriotity)
 
-            filterTag = <button type="button" className="close" aria-label="Close" onClick={ ()=>{ this.removeFilter() } }>
-                <span className="badge badge-primary text-wrap">{priorityJSON[this.state.filterPriotity]}<span aria-hidden="true">&times;</span></span>
+            filterTag = <button type="button" className="btn btn-primary" aria-label="Close" onClick={ ()=>{ this.removeFilter() } }>
+                {priorityJSON[this.state.filterPriotity]}<span aria-hidden="true">&times;</span>
             </button>
         }
         
+        let tableNavActive = "nav-link"
+        let userListNavActive = "nav-link"
+        let scrumTableNavActive = "nav-link"
         let TaskContainer = ''
         if (this.state.viewTaskList== ViewTaskList.table) {
+            tableNavActive = tableNavActive + " active"
             TaskContainer = <Table 
                 TasksList={TasksList} 
                 SelectTask={this.props.SelectTask}
                 ShowModalWindow={this.props.ShowModalWindow}
                 />
         } else if (this.state.viewTaskList== ViewTaskList.userList) {
+            userListNavActive = userListNavActive + " active"
             TaskContainer = <UserList 
                 TasksList={TasksList} 
                 SelectTask={this.props.SelectTask}
                 ShowModalWindow={this.props.ShowModalWindow}
                 />
         } else if (this.state.viewTaskList== ViewTaskList.scrumTable) {
+            scrumTableNavActive = scrumTableNavActive +  " active"
             TaskContainer = <Srum 
                 TasksList={TasksList} 
                 SelectTask={this.props.SelectTask} 
@@ -82,15 +88,23 @@ class TaskList extends Component {
             <div className="container">
                 <div className="row">
                     <Filter filterByPriotity={this.filterByPriotity}/>
-                </div>
-                <div className="row">
                     {filterTag}
                 </div>
                 <div className="row">
-                <img src="..." alt="..." className="img-thumbnail show_table" onClick={ (e)=>{ this.changeViewTaskList('table') }}/>
-                <img src="..." alt="..." className="img-thumbnail show_user_list" onClick={ (e)=>{ this.changeViewTaskList('userList') }}/>
-                <img src="..." alt="..." className="img-thumbnail show_scrum_table" onClick={ (e)=>{ this.changeViewTaskList('scrumTable') }}/>
-                <img src="..." alt="..." className="img-thumbnail add_task" onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal) }}/>
+                    <ul className="nav nav-tabs">
+                        <li className="nav-item">
+                            <a className={tableNavActive} href="#" onClick={ (e)=>{ this.changeViewTaskList('table') }}>Таблица</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className={userListNavActive} href="#" onClick={ (e)=>{ this.changeViewTaskList('userList') }}>Список</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className={scrumTableNavActive} href="#" onClick={ (e)=>{ this.changeViewTaskList('scrumTable') }}>Scrum</a>
+                        </li>
+                        <li className="nav-item">
+                            <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal) }}>Добавить задачу</button>
+                        </li>
+                    </ul>
                 </div>
                 <div className="row">
                     {TaskContainer}
@@ -102,8 +116,7 @@ class TaskList extends Component {
         )
     }
 
-    changeViewTaskList (newView) { 
-        console.log(newView)
+    changeViewTaskList (newView) {
         if(!!ViewTaskList[newView]) {
             this.setState(Object.assign({}, this.state, {
                 viewTaskList: ViewTaskList[newView]

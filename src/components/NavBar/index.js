@@ -11,7 +11,7 @@ class NavBar extends Component {
         let state = store.getState();
         
         
-        if (!state.Authorisation) {
+        if (!state.Authorisation.login) {
             LoginNav = <li className="nav-item" onClick={ (e)=>{ this.props.ShowLoginForm(e) }}>
                 <a className="nav-link" href="#">Авторизоваться</a>
             </li>

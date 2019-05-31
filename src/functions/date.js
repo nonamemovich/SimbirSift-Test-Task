@@ -2,6 +2,14 @@ export function getDateString (DateJsObj = new Date() ) {
     return getDate(DateJsObj)+' '+getTime(DateJsObj)
 }
 
+// DateTime format == "2019-05-02 02:14"
+export function getDateObjectFromStr (DateTimeStr='') {
+    let DateStr = DateTimeStr.split(" ")[0]
+    let TimeStr = DateTimeStr.split(" ")[1]
+
+    return getDateObject(TimeStr, DateStr)
+}
+
 export function getDateObject (TimeStr='', DateStr='') {
     //TimeStr="02:14"
     //DateStr="2019-05-02"

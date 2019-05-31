@@ -37,11 +37,14 @@ class TaskWindow extends Component {
         let priority = ''
         let status = ''
 
+        let ModalAction = ''
+
         if (!Task) {
             priority = 'low'
             status = 'plane'
             buttonAction = <button type="submit" className="btn btn-primary" data-dismiss="modal" 
             onClick={ ()=>{this.addTask() } }>Добавить</button>
+            ModalAction = 'Добавить задачу'
 
         } else {
             id = Task.id
@@ -58,6 +61,7 @@ class TaskWindow extends Component {
 
             buttonAction = <button type="button" className="btn btn-primary" data-dismiss="modal" 
             onClick={ ()=>{this.updataTask(Task.id)} }>Обновить</button>
+            ModalAction = 'Обновить задачу'
         }
 
         return (
@@ -65,7 +69,7 @@ class TaskWindow extends Component {
                 <div className="modal-content">
 
                     <div className="modal-header">
-                        <h5 className="modal-title">Обновить задачу</h5>
+                        <h5 className="modal-title">{ModalAction}</h5>
                     </div>
                     <div className="modal-body">
 
@@ -112,7 +116,7 @@ class TaskWindow extends Component {
                         
                         <div className="input-group mb-3">
                             <div className="input-group-prepend">
-                                <span className="input-group-text">Отведённое время</span>
+                                <span className="input-group-text">Затраченное время</span>
                             </div>
                             <input required type="text" className="form-control" 
                                 ref = {this.allottedTimeRef}

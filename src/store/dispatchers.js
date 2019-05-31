@@ -1,18 +1,42 @@
-import {ShowComponent} from '../data/clientData'
+import { ShowComponent } from '../data/clientData'
 import { TaskList as LoadTaskList } from '../data/clientData'
+
+import { getDateObjectFromStr } from '../functions/date'
 
 import store from '../store/index'
 
 export default (dispatch) => {
     return {
-        Login:(userName, passwword)=>{
-            
-            dispatch({
-                type: 'LOGIN'
+        Login:(userName, password)=>{
+            fetch("http://"+window.location.hostname+':3000/login?'+'login='+userName+'&password='+password,
+            {
+                method: "get"
+            })
+            .then(
+                response => {
+                    return response.json()
+                }
+            ).then(responseAsJson=>{
+                if(responseAsJson.TasksList) {
+                    responseAsJson.TasksList.map((Task)=>{
+                        Task.StartDate = getDateObjectFromStr(Task.StartDate)
+                        return Task
+                    })
+                    dispatch({
+                        type: 'LOGIN',
+                        payload: {
+                            TasksList: responseAsJson.TasksList,
+                            login: userName,
+                            password: password
+                        }
+                    })
+                }
+                console.log(responseAsJson)
             })
         },
 
         LogOff:()=>{
+
 
             dispatch({
                 type: 'LOGOFF'
@@ -51,25 +75,36 @@ export default (dispatch) => {
         },
 
         RefreshTasks:()=>{
-            return new Promise((resolve, reject)=>{
-                setTimeout(() => {
-                    // сюда встраивать загрузку данных с сервера
-                    resolve()
-                }, 5000);
-            }).then(
-                reuslt => 
-                {
-                    let TaskList = []
-                    TaskList = Object.assign({}, LoadTaskList)
+            let storeState = store.getState()
+            let userName = storeState.Authorisation.login
+            let password = storeState.Authorisation.password
+
+            fetch("http://"+window.location.hostname+':3000/login?'+'login='+userName+'&password='+password,
+            {
+                method: "get"
+            })
+            .then(
+                response => {
+                    return response.json()
+                }
+            ).then(responseAsJson=>{
+                if(responseAsJson.TasksList) {
+                    let TaskList= responseAsJson.TasksList.map((Task)=>{
+                        Task.StartDate = getDateObjectFromStr(Task.StartDate)
+                        return Task
+                    })
                     dispatch({
                         type: 'FETCH_TASKS',
-                        payload: TaskList
+                        payload:{
+                            TasksList: TaskList
+                        }
                     })
-                },
-                error => {
-                    console.warn(error)
+                } else {
+
                 }
-            )
+            }, error=>{
+                console.log(error)
+            })
         },
 
         ShowTaskList:()=>{

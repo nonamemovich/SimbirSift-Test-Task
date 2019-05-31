@@ -61,6 +61,7 @@ class TaskList extends Component {
         let scrumTableNavActive = "nav-link"
         let TaskContainer = ''
         if (this.state.viewTaskList== ViewTaskList.table) {
+            // отобразить подробную таблицу с сортировкой
             tableNavActive = tableNavActive + " active"
             TaskContainer = <Table 
                 TasksList={TasksList} 
@@ -68,6 +69,7 @@ class TaskList extends Component {
                 ShowModalWindow={this.props.ShowModalWindow}
                 />
         } else if (this.state.viewTaskList== ViewTaskList.userList) {
+            // отобразить краткий список
             userListNavActive = userListNavActive + " active"
             TaskContainer = <UserList 
                 TasksList={TasksList} 
@@ -75,6 +77,7 @@ class TaskList extends Component {
                 ShowModalWindow={this.props.ShowModalWindow}
                 />
         } else if (this.state.viewTaskList== ViewTaskList.scrumTable) {
+            // отобразить Scrum таблицу
             scrumTableNavActive = scrumTableNavActive +  " active"
             TaskContainer = <Srum 
                 TasksList={TasksList} 

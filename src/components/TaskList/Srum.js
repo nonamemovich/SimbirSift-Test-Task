@@ -125,7 +125,6 @@ class Srum extends Component {
     onDragEnd (e, eventOptions) {
         if (!eventOptions.taskStatus) return
         let state = store.getState()
-        console.log(eventOptions)
         let NewTask = Object.assign( {}, eventOptions.Task, {status: eventOptions.taskStatus})
         this.props.UpdateTask(NewTask)
 

@@ -12,3 +12,7 @@ td.w250px {
 td.borderRight {
     border-right: 2px solid #dee2e6;
 }
+
+.cursorPointer {
+    cursor: pointer;
+}

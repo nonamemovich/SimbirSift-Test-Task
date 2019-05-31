@@ -20,7 +20,7 @@ class App extends Component {
         let state = store.getState()
         let contComponent = ''
 
-        if (!!state.Authorisation.login) {
+        if (!state.Authorisation.login) {
             contComponent = <LoginForm Login={this.props.Login}/>
         } else {
             if (state.ShowComponent == ShowComponent.Task) {

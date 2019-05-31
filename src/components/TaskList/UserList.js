@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from "react"
+import React, {Component} from "react"
 import {getDateString} from '../../functions/date'
 
 import {priorityStyle, priorityJSON} from '../../data/clientData'
@@ -9,8 +9,7 @@ class UserList extends Component {
     }
     render (){
         let TasksList = this.props.TasksList
-        console.log(this.props)
-        let List = TasksList.map(((Task, index)=>{
+        let List = TasksList.map(((Task)=>{
 
             let TaskId = Task.id || ''
             let Description = Task.description || ''

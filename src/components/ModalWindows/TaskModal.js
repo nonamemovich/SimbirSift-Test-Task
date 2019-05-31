@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import store from '../../store/index'
 
-import {getDateString, getDateObject, getTime, getDate} from '../../functions/date'
+import {getDateObject, getTime, getDate} from '../../functions/date'
 import {priorityJSON, taskStatus} from '../../data/clientData'
 
 class TaskWindow extends Component {
@@ -181,13 +181,16 @@ class TaskWindow extends Component {
             this.props.onAddTask({
                 description: description,
                 fullDescription: fullDescription,
-                StartDate: getDateObject(startTime, startDate),
+                StartDate: startDate+" "+startTime,
                 planeTime: planeTime,
                 allottedTime: allottedTime,
                 priority: priority,
                 status: status
-            })
-            this.props.CloseModalWindow()
+            }).then(
+                res => {
+                    this.props.CloseModalWindow()
+                }
+            )
         }
     }
 
@@ -212,13 +215,16 @@ class TaskWindow extends Component {
                 id: TaskId,
                 description: description,
                 fullDescription: fullDescription,
-                StartDate: getDateObject(startTime, startDate),
+                StartDate: startDate+" "+startTime,
                 planeTime: planeTime,
                 allottedTime: allottedTime,
                 priority: priority,
                 status: status
-            })
-            this.props.CloseModalWindow()
+            }).then(
+                res =>{ 
+                    this.props.CloseModalWindow()
+                }
+            )
         }
     }
 }

@@ -1,5 +1,4 @@
 import { createStore } from 'redux'
-import { TaskList } from '../data/clientData'
 
 let ShowComponent = {
     TaskList: 0,
@@ -8,12 +7,12 @@ let ShowComponent = {
 }
 
 let initialState = {
-    TasksList: TaskList,
+    TasksList: [],
     ShowComponent: ShowComponent.TaskList,
     TaskId: null,
     Authorisation: {
-        login: '',
-        password: ''
+        login: localStorage.getItem("login") || "",
+        password: localStorage.getItem("password") || ""
     },
     ModalStore: {
         show: false,
@@ -31,8 +30,12 @@ var store = createStore((state = initialState, action)=>{
             return newState
         case 'REMOVE_TASK':
             newState.TasksList = action.payload
+            newState.ShowComponent = ShowComponent.TaskList
             return newState
         case 'UPDATE_TASK': 
+            newState.TasksList = action.payload
+            return newState
+        case 'FETCH_TASKS':
             newState.TasksList = action.payload
             return newState
         case 'LOAD_TASKS':

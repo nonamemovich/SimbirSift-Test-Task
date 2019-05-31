@@ -1,10 +1,8 @@
-import React, {Component, PureComponent} from "react"
+import React, {Component} from "react"
 import TaskRow from './TaskRow'
 
 import {filters} from './filters'
-import {ViewTaskList, sortParams} from '../../data/constants'
-
-import style from './style.css'
+import {sortParams} from '../../data/constants'
 
 class TaskList extends Component {
 	constructor(props) {
@@ -27,17 +25,19 @@ class TaskList extends Component {
             return <TaskRow Task={Task} SelectTask={this.props.SelectTask} key={Task.id} numb={numb++}/>
         }))
 
+        const sortThStyle = { cursor: "pointer", borderLeft: "2px solid #dee2e6" }
+
         return (
             <table className="table table-hover">
                 <thead>
-                    <tr className={style.tableFilter}>
+                    <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Описание задачи</th>
-                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Date) } }>Дата</th>
-                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Plane) } }>Планируемое время</th>
-                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.AllottedTime) } }>Затраченное время</th>
-                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Priotity) } }>Приоритет </th>
-                        <th scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Status) } }>Статус</th>
+                        <th style={{borderLeft: "2px solid #dee2e6"}} scope="col">Описание задачи</th>
+                        <th className="text-primary" style = {sortThStyle} scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Date) } }>Дата</th>
+                        <th className="text-primary" style = {sortThStyle} scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Plane) } }>Планируемое время</th>
+                        <th className="text-primary" style = {sortThStyle} scope="col" onClick={ ()=>{ this.sortFunction(sortParams.AllottedTime) } }>Затраченное время</th>
+                        <th className="text-primary" style = {sortThStyle} scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Priotity) } }>Приоритет</th>
+                        <th className="text-primary" style = {sortThStyle} scope="col" onClick={ ()=>{ this.sortFunction(sortParams.Status) } }>Статус</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +49,7 @@ class TaskList extends Component {
 
     sortFunction (sortParams) {
         const currentState = this.state;
-        let reverse = false 
+        let reverse = false
         if (currentState.sortParam==sortParams) reverse = !currentState.reverse
         this.setState({
             filterPriotity: currentState.filterPriotity,

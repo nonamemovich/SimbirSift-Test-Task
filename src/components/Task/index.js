@@ -4,7 +4,7 @@ import store from '../../store/index'
 import {getDateString} from '../../functions/date'
 
 import {ModalWindows} from '../../data/constants'
-import {ShowComponent, priorityJSON, priorityStyle, taskStatus} from '../../data/clientData'
+import {priorityJSON, taskStatus} from '../../data/clientData'
 
 class Task extends Component {
 	constructor(props) {
@@ -42,7 +42,8 @@ class Task extends Component {
                         <hr/>
                         <h6 className="card-subtitle">Приоритет: {priorityJSON[Task.priority]}</h6>
                         <hr/>
-                        <button type="button" className="btn btn-outline-primary mb-1" onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal, Task) }}>Редактировать</button>
+                        <button type="button" className="btn btn-outline-primary mr-2 mb-1" onClick={ (e)=>{ this.props.ShowModalWindow(ModalWindows.TaskModal, Task) }}>Редактировать</button>
+                        <button type="button" className="btn btn-danger mr-2 mb-1" onClick={ (e)=>{ this.onRemoveTask(Task.id) }}>Удалить</button>
                         <a href="#" className="text-decoration-none float-right" onClick={ (e)=>{ this.props.ShowTaskList() }}>Перейти к списку задач</a>
                     </div>
                 </div>
@@ -50,6 +51,9 @@ class Task extends Component {
         } else {
             return <div> Данной задачи нет </div>
         }
+    }
+    onRemoveTask (taskId){
+        this.props.onRemoveTask(taskId)
     }
 }
 

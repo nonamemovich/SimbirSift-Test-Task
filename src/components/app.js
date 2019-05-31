@@ -17,20 +17,26 @@ class App extends Component {
     }
 
     render () {
-        let state = store.getState()
+        let storeState = store.getState()
         let contComponent = ''
+        if (storeState.TasksList.length==0) {
+            setTimeout(()=>{
+                this.props.RefreshTasks()
+            },100)
+        }
 
-        if (!state.Authorisation.login) {
+        if (!storeState.Authorisation.login) {
             contComponent = <LoginForm Login={this.props.Login}/>
         } else {
-            if (state.ShowComponent == ShowComponent.Task) {
+            if (storeState.ShowComponent == ShowComponent.Task) {
                 contComponent = <Task 
-                    TastId={state.TaskId} 
+                    TastId={storeState.TaskId} 
                     ShowTaskList={ this.props.ShowTaskList }
                     ShowModalWindow={this.props.ShowModalWindow}
+                    onRemoveTask={this.props.onRemoveTask}
                 />
             }
-            if (state.ShowComponent == ShowComponent.TaskList) {
+            if (storeState.ShowComponent == ShowComponent.TaskList) {
                 contComponent = <TaskList 
                     SelectTask={this.props.SelectTask} 
                     RefreshTasks={this.props.RefreshTasks} 
@@ -56,7 +62,7 @@ class App extends Component {
                     <ModalWindow 
                         UpdateTask={this.props.UpdateTask} 
                         onAddTask={this.props.onAddTask} 
-                        ModalStore={state.ModalStore}
+                        ModalStore={storeState.ModalStore}
                         CloseModalWindow={this.props.CloseModalWindow}
                         />
                 </div>

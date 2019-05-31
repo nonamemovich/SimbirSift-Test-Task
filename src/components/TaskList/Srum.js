@@ -2,7 +2,6 @@ import React, {Component, PureComponent} from "react"
 import {getDateString} from '../../functions/date'
 import {taskStatus} from '../../data/clientData'
 import store from '../../store/index'
-import style from './style.css'
 
 class TaskEl extends Component {
 	constructor(props) {
@@ -56,20 +55,23 @@ class Srum extends Component {
             } 
         })
 
+        const columnStyle = { width: "250px", borderLeft: "2px solid #dee2e6", borderBottom: "2px solid #dee2e6" }
+        const lastColumn =  { width: "250px", borderLeft: "2px solid #dee2e6", borderRight: "2px solid #dee2e6", borderBottom: "2px solid #dee2e6" }
+
         return (
 
             <div>
                 <table className="table">
                     <thead>
                         <tr >
-                            <th className={style.w250px}  scope="col"><h4>План</h4></th>
-                            <th className='w250px'  scope="col"><h4>В процессе</h4></th>
-                            <th className='w250px'  scope="col"><h4>Готово</h4></th>
+                            <th style={columnStyle} scope="col"><h4>План</h4></th>
+                            <th style={columnStyle}  scope="col"><h4>В процессе</h4></th>
+                            <th style={lastColumn}  scope="col"><h4>Готово</h4></th>
                         </tr>
                     </thead>
                     <tbody >
                         <tr>
-                            <td className='w250px' onDragEnter={ (e) => this.onDragEnter(e, 'plane', eventOptions)}>
+                            <td style={columnStyle} onDragEnter={ (e) => this.onDragEnter(e, 'plane', eventOptions)}>
                             {planeList.map((Task)=>{
                                 return (
                                     <TaskEl key={Task.id} 
@@ -82,7 +84,7 @@ class Srum extends Component {
                             })}
                             </td>
 
-                            <td className='w250px' onDragEnter={ (e) => this.onDragEnter(e, 'doing', eventOptions)}>
+                            <td style={columnStyle} onDragEnter={ (e) => this.onDragEnter(e, 'doing', eventOptions)}>
                             {doingList.map((Task)=>{
                                 return (
                                     <TaskEl key={Task.id}
@@ -95,7 +97,7 @@ class Srum extends Component {
                             })}
                             </td>
                             
-                            <td className='w250px' onDragEnter={ (e) => this.onDragEnter(e, 'done', eventOptions)}>
+                            <td style={lastColumn} onDragEnter={ (e) => this.onDragEnter(e, 'done', eventOptions)}>
                             {doneList.map((Task)=>{
                                 return (
                                     <TaskEl key={Task.id} 
@@ -124,8 +126,7 @@ class Srum extends Component {
     
     onDragEnd (e, eventOptions) {
         if (!eventOptions.taskStatus) return
-        let state = store.getState()
-        let NewTask = Object.assign( {}, eventOptions.Task, {status: eventOptions.taskStatus})
+        let NewTask = Object.assign( {}, eventOptions.Task, {status: eventOptions.taskStatus, StartDate: getDateString(eventOptions.Task.StartDate)})
         this.props.UpdateTask(NewTask)
 
         eventOptions ={

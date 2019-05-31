@@ -5,10 +5,12 @@ import { getDateObjectFromStr } from '../functions/date'
 
 import store from '../store/index'
 
+const serverUrl = "http://"+window.location.hostname+":3000"
+
 export default (dispatch) => {
     return {
         Login:(userName, password)=>{
-            fetch("http://"+window.location.hostname+':3000/login?'+'login='+userName+'&password='+password,
+            fetch(serverUrl+"/login?"+"login="+userName+"&password="+password,
             {
                 method: "get"
             })
@@ -22,6 +24,10 @@ export default (dispatch) => {
                         Task.StartDate = getDateObjectFromStr(Task.StartDate)
                         return Task
                     })
+
+                    localStorage.setItem("login",userName)
+                    localStorage.setItem("password",password)
+
                     dispatch({
                         type: 'LOGIN',
                         payload: {
@@ -44,34 +50,43 @@ export default (dispatch) => {
         },
 
         UpdateTask: (newTask) => {
-            return new Promise((resolve, reject)=>{
-                setTimeout(() => {
-                    // здесь будет отправка данных на сервер.
-                    resolve()
-                }, 100);
-            }).then(
-                reuslt =>
+            let storeState = store.getState()
+            let userName = storeState.Authorisation.login
+            let password = storeState.Authorisation.password
+            let urlParams = ""
+            urlParams = urlParams+"&id="+encodeURI(newTask.id)
+            urlParams = urlParams+"&description="+encodeURI(newTask.description)
+            urlParams = urlParams+"&fullDescription="+encodeURI(newTask.fullDescription)
+            urlParams = urlParams+"&StartDate="+encodeURI(newTask.StartDate)
+            urlParams = urlParams+"&planeTime="+encodeURI(newTask.planeTime)
+            urlParams = urlParams+"&allottedTime="+encodeURI(newTask.allottedTime)
+            urlParams = urlParams+"&priority="+encodeURI(newTask.priority)
+            urlParams = urlParams+"&status="+encodeURI(newTask.status)
+
+            return new Promise((resolve)=>{
+                fetch(serverUrl+"/updateTask?"+"login="+userName+"&password="+password+urlParams,
                 {
-                    let state = store.getState()
-                    const TasksList = state.TasksList
+                    method: "post"
+                })
+                .then(
+                    response => {
+                        return response.json()
+                    }
+                ).then(responseAsJson=>{
 
-                    let newTaskList= []
-                    newTaskList = TasksList.map((Task)=>{
-                        if(newTask.id==Task.id) {
-                            return newTask
-                        }
-                        return Task
-                    })
-
-                    dispatch({
-                        type: 'UPDATE_TASK',
-                        payload: newTaskList
-                    })
-                },
-                error => {
-                    console.warn(error)
-                }
-            )
+                    if(responseAsJson.TaskUpdated) {
+                        let TaskList= responseAsJson.TasksList.map((Task)=>{
+                            Task.StartDate = getDateObjectFromStr(Task.StartDate)
+                            return Task
+                        })
+                        dispatch({
+                            type: 'UPDATE_TASK',
+                            payload:  TaskList,
+                        })
+                    }
+                    resolve()
+                })
+            })
         },
 
         RefreshTasks:()=>{
@@ -89,15 +104,14 @@ export default (dispatch) => {
                 }
             ).then(responseAsJson=>{
                 if(responseAsJson.TasksList) {
-                    let TaskList= responseAsJson.TasksList.map((Task)=>{
+                    console.log(responseAsJson.TasksList)
+                    let TasksList= responseAsJson.TasksList.map((Task)=>{
                         Task.StartDate = getDateObjectFromStr(Task.StartDate)
                         return Task
                     })
                     dispatch({
                         type: 'FETCH_TASKS',
-                        payload:{
-                            TasksList: TaskList
-                        }
+                        payload: TasksList
                     })
                 } else {
 
@@ -132,16 +146,42 @@ export default (dispatch) => {
         },
 
         onAddTask: (newTask) => {
-            let state = store.getState()
-            const TasksList = state.TasksList
+            let storeState = store.getState()
+            let userName = storeState.Authorisation.login
+            let password = storeState.Authorisation.password
+            let urlParams = ""
 
-            newTask.id = TasksList.length+1
+            urlParams = urlParams+"&description="+encodeURI(newTask.description)
+            urlParams = urlParams+"&fullDescription="+encodeURI(newTask.fullDescription)
+            urlParams = urlParams+"&StartDate="+encodeURI(newTask.StartDate)
+            urlParams = urlParams+"&planeTime="+encodeURI(newTask.planeTime)
+            urlParams = urlParams+"&allottedTime="+encodeURI(newTask.allottedTime)
+            urlParams = urlParams+"&priority="+encodeURI(newTask.priority)
+            urlParams = urlParams+"&status="+encodeURI(newTask.status)
 
-            let NewTasksList = TasksList.slice();
-            NewTasksList.push(newTask)
-            dispatch({
-                type: 'ADD_TASK',
-                payload: NewTasksList
+            return new Promise((resolve)=>{
+                fetch(serverUrl+"/addTask?"+"login="+userName+"&password="+password+urlParams,
+                {
+                    method: "post"
+                })
+                .then(
+                    response => {
+                        return response.json()
+                    }
+                ).then(responseAsJson=>{
+
+                    if(responseAsJson.TasksList) {
+                        let TaskList= responseAsJson.TasksList.map((Task)=>{
+                            Task.StartDate = getDateObjectFromStr(Task.StartDate)
+                            return Task
+                        })
+                        dispatch({
+                            type: 'ADD_TASK',
+                            payload:  TaskList,
+                        })
+                    }
+                    resolve()
+                })
             })
         },
 
@@ -161,12 +201,37 @@ export default (dispatch) => {
             })
         },
 
-        onRemoveTask: (TaskIndex) => {
-            let NewTaskList = TaskList.slice().splice(TaskIndex,1)
+        onRemoveTask: (TaskId) => {
+            let storeState = store.getState()
+            let userName = storeState.Authorisation.login
+            let password = storeState.Authorisation.password
+            let urlParams = ""
 
-            dispatch({
-                type: 'REMOVE_TASK',
-                payload: NewTaskList
+            urlParams = urlParams+"&TaskId="+TaskId
+
+            return new Promise((resolve)=>{
+                fetch(serverUrl+"/removeTask?"+"login="+userName+"&password="+password+urlParams,
+                {
+                    method: "post"
+                })
+                .then(
+                    response => {
+                        return response.json()
+                    }
+                ).then(responseAsJson=>{
+                    console.log('REMOVE_TASK', responseAsJson)
+                    if(responseAsJson.TasksList) {
+                        let TasksList= responseAsJson.TasksList.map((Task)=>{
+                            Task.StartDate = getDateObjectFromStr(Task.StartDate)
+                            return Task
+                        })
+                        dispatch({
+                            type: 'REMOVE_TASK',
+                            payload: TasksList
+                        })
+                    }
+                    resolve()
+                })
             })
         }
     }

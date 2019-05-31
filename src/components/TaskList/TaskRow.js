@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from "react"
+import React, {Component} from "react"
 import {taskStatus, priorityJSON, priorityStyle} from '../../data/clientData'
 
 import {getDateString} from '../../functions/date'

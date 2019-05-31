@@ -6,6 +6,7 @@ const htmlPlugin = new htmlWebPackPlugin({
 });
 
 const path = require('path');
+
 const cssLoader = {
     loader: "css-loader",
     options: {
@@ -36,7 +37,7 @@ module.exports = {
 				}
 			}, {
 				test: /\.css$/,
-				use: [ styleLoader, cssLoader]
+				use: [ styleLoader, cssLoader ]
 			}
 		]
 	},

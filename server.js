@@ -27,7 +27,7 @@ app.options("/", function(req, res, next){
 //>> для кроссдоменных запросов
 
 app.listen(3000, function(){
-	console.log('Example app listening on port 3000!')
+	console.log('App listening on port 3000!')
 })
 
 var CheckAuthorisation= function(login="", password="") {
@@ -77,7 +77,6 @@ app.get('/taskList', function (req, res) {
 app.post('/updateTask', function (req, res) {
     if(CheckAuthorisation(req.query.login, req.query.password)) {
         let UpdatedTask = getTaskFromQuery(req.query)
-        console.log(UpdatedTask)
 
         let TasksList = []
         TasksList = data.users[req.query.login]["TasksList"].map((Task)=>{

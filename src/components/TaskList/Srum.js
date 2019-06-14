@@ -1,7 +1,6 @@
 import React, {Component, PureComponent} from "react"
 import {getDateString} from '../../functions/date'
-import {taskStatus} from '../../data/clientData'
-import store from '../../store/index'
+import style from "./Style.css"
 
 class TaskEl extends Component {
 	constructor(props) {
@@ -12,7 +11,7 @@ class TaskEl extends Component {
         let eventOptions = this.props.eventOptions
         
         return (
-            <a key={Task.id} href="#" className="list-group-item list-group-item-action"
+            <a key={Task.id} href="#" className={style.margin2px+" list-group-item list-group-item-action"}
                 draggable
                 onDragStart = { (e) => { this.props.onDragStart(e, Task, eventOptions) } }
                 onDragEnd = { (e) => { this.props.onDragEnd(e, eventOptions) } }

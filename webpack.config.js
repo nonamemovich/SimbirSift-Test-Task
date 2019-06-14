@@ -6,15 +6,14 @@ const htmlPlugin = new htmlWebPackPlugin({
 });
 
 const path = require('path');
-
 const cssLoader = {
     loader: "css-loader",
     options: {
       modules: true,
-      importLoaders: 1,
+      importLoaders: 2,
       localIdentName: "[name]_[local]_[hash:base64]",
-      sourceMap: true,
-      minimize: true
+      sourceMap: true//,
+      //minimize: true
      }
 };
 const styleLoader = {

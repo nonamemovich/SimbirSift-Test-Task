@@ -195,7 +195,6 @@ class TaskWindow extends Component {
     }
 
     updataTask(TaskId) {
-        console.log('TaskId',TaskId)
         let description = this.descriptionRef.current.value || ''
         let fullDescription = this.fullDescriptionRef.current.value || ''
 

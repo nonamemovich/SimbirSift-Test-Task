@@ -37,7 +37,6 @@ export default (dispatch) => {
                         }
                     })
                 }
-                console.log(responseAsJson)
             })
         },
 
@@ -104,7 +103,6 @@ export default (dispatch) => {
                 }
             ).then(responseAsJson=>{
                 if(responseAsJson.TasksList) {
-                    console.log(responseAsJson.TasksList)
                     let TasksList= responseAsJson.TasksList.map((Task)=>{
                         Task.StartDate = getDateObjectFromStr(Task.StartDate)
                         return Task
@@ -117,7 +115,7 @@ export default (dispatch) => {
 
                 }
             }, error=>{
-                console.log(error)
+                console.warn(error)
             })
         },
 
@@ -219,7 +217,6 @@ export default (dispatch) => {
                         return response.json()
                     }
                 ).then(responseAsJson=>{
-                    console.log('REMOVE_TASK', responseAsJson)
                     if(responseAsJson.TasksList) {
                         let TasksList= responseAsJson.TasksList.map((Task)=>{
                             Task.StartDate = getDateObjectFromStr(Task.StartDate)

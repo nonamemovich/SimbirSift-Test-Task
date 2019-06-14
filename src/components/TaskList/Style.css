@@ -1,0 +1,24 @@
+.tableRow {
+    
+}
+.filter {
+    cursor: pointer;
+    border-left: 2px solid rgb(222, 226, 230);
+}
+.scrumTask {
+    width: 250px; 
+    border-left: 2px solid rgb(222, 226, 230); 
+    border-bottom: 2px solid rgb(222, 226, 230);
+}
+
+.tableCol {
+    border-right: 1px solid #dee2e6;
+}
+
+.margin0px {
+    margin: 0
+}
+
+.margin2px {
+    margin: 2px
+}

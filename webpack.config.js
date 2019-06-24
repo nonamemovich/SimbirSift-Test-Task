@@ -9,11 +9,9 @@ const path = require('path');
 const cssLoader = {
     loader: "css-loader",
     options: {
+	  importLoaders: 2,
       modules: true,
-      importLoaders: 2,
-      localIdentName: "[name]_[local]_[hash:base64]",
-      sourceMap: true//,
-      //minimize: true
+      sourceMap: true
      }
 };
 const styleLoader = {
